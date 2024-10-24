@@ -47,7 +47,6 @@ class ServicoController extends Controller
 
         ]);
 
-
         $servico = Servico::create($request->all());
 
         if ($request->hasFile('foto')) {
@@ -60,9 +59,6 @@ class ServicoController extends Controller
             }
         }
             
-
-    
-
         return redirect()->route('servico.index')->with('sucesso','Cadastro Realizado com Sucesso!');
     }
 
