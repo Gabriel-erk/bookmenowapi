@@ -1,30 +1,26 @@
 <?php
 
-use App\Http\Controllers\Api\CategoriaApiController;
-use App\Http\Controllers\Api\ServicoApiController;
-use App\Http\Controllers\Api\UsuarioApiController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ServicoApiController;
+use App\Http\Controllers\Api\CategoriaApiController;
+use App\Http\Controllers\AutenticacaoController;
 
-Route::controller(CategoriaApiController::class)->group(function () {
-    Route::get("categorias", 'index');
-    Route::post("categorias/salvar", 'store');
-    Route::put("categorias/atualizar/{id}", 'update');
-    Route::put("categorias/visualizar/{id}", 'show');
-    Route::delete("categorias/deletar/{id}", 'destroy');
-});
+Route::post('/login', [AutenticacaoController::class, 'login']);
+Route::post('/logout', [AutenticacaoController::class, 'logout'])->middleware('auth:sanctum');
 
-Route::controller(ServicoApiController::class)->group(function () {
-    Route::get("servicos", 'index');
-    Route::get("servicos/visualizar/{id}", 'show');
-    Route::post("servicos/salvar", 'store');
-    Route::put("servicos/atualizar/{id}", 'update');
-    Route::delete("servicos/deletar/{id}", 'destroy');
-});
+Route::get('servicos', [ServicoApiController::class, 'index']);
+Route::post('servicos', [ServicoApiController::class, 'store']);
+Route::get('servicos/visualizar/{id}', [ServicoApiController::class, 'show']);
+Route::put('servicos/atualizar/{id}', [ServicoApiController::class, 'update']);
+Route::delete('servicos/deletar/{id}', [ServicoApiController::class, 'destroy']);
 
-Route::controller(UsuarioApiController::class)->group(function () {
-    Route::get("usuarios", 'index');
-    Route::get("usuarios/visualizar/{id}", 'show');
-    Route::post("usuarios/salvar", 'store');
-    Route::put("usuarios/atualizar/{id}", 'update');
-    Route::delete("usuarios/deletar/{id}", 'destroy');
-});
+Route::get('categorias', [CategoriaApiController::class, 'index']);
+Route::post('categorias', [CategoriaApiController::class, 'store']);
+Route::get('categorias/visualizar/{id}', [CategoriaApiController::class, 'show']);
+Route::put('categorias/atualizar/{id}', [CategoriaApiController::class, 'update']);
+Route::delete('categorias/deletar/{id}', [CategoriaApiController::class, 'destroy']);
+
+
+
+
